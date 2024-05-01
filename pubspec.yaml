@@ -1,0 +1,30 @@
+name: pokedex_marce
+description: "A new Flutter project."
+publish_to: 'none'
+version: 0.1.0+1
+
+environment:
+  sdk: '>=3.3.1 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+
+
+  # cupertino icons
+  cupertino_icons: ^1.0.2
+  provider: ^6.0.4
+  http: ^0.13.5
+  palette_generator: ^0.3.3+2
+  cached_network_image: ^3.2.3
+  shared_preferences: ^2.0.15
+  connectivity_plus: ^3.0.2
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^3.0.0
+
+flutter:
+  uses-material-design: true
