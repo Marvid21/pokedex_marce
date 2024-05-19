@@ -52,7 +52,7 @@ class PokemonBasicDataService {
         String pokeIdPadLeft = '';
         int id = pokeData['id'];
         pokeIdPadLeft = (id).toString().padLeft(3, '0');
-        String imageUrl = 'https://assets.pokemon.com/assets/cms2/img/pokedex/full/$pokeIdPadLeft.png';
+        String imageUrl = 'https://projectpokemon.org/images/sprites-models/bw-animated/$pokeIdPadLeft.gif';
         final pokeUrl = 'htpps://pokeapi.co/api/v2/$nameLowerCase';
 
         pokemon = {

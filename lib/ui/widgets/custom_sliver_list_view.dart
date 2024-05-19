@@ -30,7 +30,7 @@ class CustomSliverListView extends StatelessWidget {
           delegate: SliverChildBuilderDelegate((context, index) {
             final pokemon = pokemons[index];
             String pokeIdPadLeft = '';
-            String imageUrl = 'https://assets.pokemon.com/assets/cms2/img/pokedex/full/$pokeIdPadLeft.png';
+            String imageUrl = 'https://projectpokemon.org/images/sprites-models/bw-animated/$pokeIdPadLeft.gif';
             if (showFavorites) {
               imageUrl = pokemon.imageUrl;
               pokeIdPadLeft = pokemon.id;
@@ -41,11 +41,11 @@ class CustomSliverListView extends StatelessWidget {
                 children: [
                   Image.network(
                     imageUrl,
-                    width: 70,
-                    height: 70,
+                    width: 40,
+                    height: 40,
                     fit: BoxFit.cover,
                   ),
-                  const SizedBox(width: 16),
+                  const SizedBox(width: 24),
                   Text(
                     pokemon.name,
                     style: const TextStyle(fontSize: 18),
