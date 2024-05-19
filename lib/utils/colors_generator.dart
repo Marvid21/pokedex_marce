@@ -12,37 +12,58 @@ class ColorsGenerator {
 
       switch (types.firstWhere((type) => type.isNotEmpty, orElse: () => '')) {
         case 'grass':
-          cardColor = Color.fromARGB(255, 2, 161, 7);
+          cardColor = const Color.fromARGB(255, 0, 116, 4);
           break;
         case 'fire':
-          cardColor = const Color.fromARGB(255, 231, 93, 0);
+          cardColor = const Color.fromARGB(255, 255, 51, 0);
           break;
         case 'normal':
-          cardColor = const Color.fromARGB(255, 192, 192, 192);
+          cardColor = const Color.fromARGB(255, 168, 165, 138);
           break;
         case 'water':
-          cardColor = const Color.fromARGB(255, 24, 151, 255);
+          cardColor = const Color.fromARGB(255, 0, 36, 240);
           break;
         case 'bug':
-          cardColor = const Color.fromARGB(255, 76, 241, 0);
+          cardColor = const Color.fromARGB(255, 169, 241, 0);
           break;
         case 'electric':
-          cardColor = const Color.fromARGB(255, 218, 196, 0);
+          cardColor = const Color.fromARGB(255, 255, 238, 0);
           break;
         case 'rock':
           cardColor = const Color.fromARGB(255, 150, 102, 84);
           break;
         case 'psychic':
-          cardColor = const Color.fromARGB(255, 243, 73, 129);
+          cardColor = const Color.fromARGB(255, 195, 0, 255);
           break;
         case 'ground':
-          cardColor = const Color.fromARGB(255, 197, 171, 123);
+          cardColor = const Color.fromARGB(255, 172, 127, 43);
           break;
         case 'poison':
           cardColor = const Color.fromARGB(255, 140, 34, 158);
           break;
         case 'ghost':
-          cardColor = const Color.fromARGB(255, 102, 27, 116);
+          cardColor = const Color.fromARGB(255, 68, 0, 80);
+          break;
+        case 'fighting':
+          cardColor = const Color.fromARGB(255, 143, 0, 0);
+          break;
+        case 'ice':
+          cardColor = const Color.fromARGB(255, 0, 255, 255);
+          break;
+        case 'flying':
+          cardColor = const Color.fromARGB(255, 93, 190, 255);
+          break;
+        case 'fairy':
+          cardColor = const Color.fromARGB(255, 255, 0, 191);
+          break;
+        case 'dragon':
+          cardColor = const Color.fromARGB(255, 15, 0, 102);
+          break;
+        case 'dark':
+          cardColor = const Color.fromARGB(255, 19, 0, 22);
+          break;
+        case 'steel':
+          cardColor = const Color.fromARGB(255, 202, 202, 202);
           break;
         default:
           // Puedes asignar un color por defecto si el tipo no coincide con ninguno de los casos
