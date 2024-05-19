@@ -75,6 +75,7 @@ class _PokemonCardItemState extends State<PokemonCardItem> {
                     Text("Pokemon nro ${widget.id}",
                       style: TextStyle(
                         fontSize: Theme.of(context).textTheme.bodySmall?.fontSize,
+                        fontWeight: FontWeight.bold,
                       ),
                     ),
                     Text(

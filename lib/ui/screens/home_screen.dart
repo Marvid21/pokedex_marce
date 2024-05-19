@@ -21,19 +21,54 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  final _scrollController = ScrollController();
+  final _pageController = PageController();
   int offset = 0;
+  bool isLoading = false;
 
   @override
   void initState() {
     super.initState();
-    pokemonLazyLoading();
+    fetchPokemons();
+    _pageController.addListener(_scrollListener);
   }
 
   @override
   void dispose() {
-    _scrollController.dispose();
+    _pageController.dispose();
     super.dispose();
+  }
+
+  void _scrollListener() {
+    if (_pageController.position.pixels == _pageController.position.maxScrollExtent && !isLoading) {
+      fetchPokemons();
+    }
+  }
+
+  Future<void> fetchPokemons() async {
+    if (isLoading) return;
+    setState(() {
+      isLoading = true;
+    });
+
+    await Provider.of<PokemonBasicDataController>(context, listen: false).getAllPokemons(offset);
+    final pokemonStatsController = Provider.of<PokemonStatsController>(context, listen: false);
+    final pokemonMoreInfoController = Provider.of<PokemonMoreInfoController>(context, listen: false);
+
+    final pokemons = Provider.of<PokemonBasicDataController>(context, listen: false).pokemons;
+
+    for (final pokemon in pokemons.sublist(offset)) {
+      if (pokemon.pokemonStatsData == null) {
+        await pokemonStatsController.getPokemonStats(pokemon);
+      }
+      if (pokemon.pokemonMoreInfoData == null) {
+        await pokemonMoreInfoController.getPokemonMoreInfoData(pokemon);
+      }
+    }
+
+    setState(() {
+      isLoading = false;
+      offset += 20; // Increment the offset to load the next set of Pokémon
+    });
   }
 
   @override
@@ -46,24 +81,22 @@ class _HomeScreenState extends State<HomeScreen> {
       drawer: const NavigationsDrawer(),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 0),
-        child: FutureBuilder(
-          future: fetchPokemons(),
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
+        child: Consumer<PokemonBasicDataController>(
+          builder: (context, pokemonBasicDataController, child) {
+            final pokemons = pokemonBasicDataController.pokemons;
+            if (pokemons.isEmpty && isLoading) {
               return const Center(child: CircularProgressIndicator());
             } else {
-              return ListView.builder(
-                controller: _scrollController,
-                itemCount: Provider.of<PokemonBasicDataController>(context).pokemons.length,
+              return PageView.builder(
+                controller: _pageController,
+                scrollDirection: Axis.vertical,
+                itemCount: pokemons.length,
                 itemBuilder: (context, index) {
-                  final pokemon = Provider.of<PokemonBasicDataController>(context).pokemons[index];
-                  final pokeMoreInfoController = Provider.of<PokemonMoreInfoController>(context);
-                  final pokeStatsDataController = Provider.of<PokemonStatsController>(context);
-                  String pokeIdPadLeft = (index + 1).toString().padLeft(3, '0');
-                  String imageUrl = 'https://assets.pokemon.com/assets/cms2/img/pokedex/full/$pokeIdPadLeft.png';
-
-                  pokeMoreInfoController.getPokemonMoreInfoData(pokemon);
-                  pokeStatsDataController.getPokemonStats(pokemon);
+                  final pokemon = pokemons[index];
+                  String pokeIdPadLeft = (index + 1).toString().padLeft(4, '0');
+                  
+                  String imageUrl = 'https://projectpokemon.org/images/sprites-models/sv-sprites-home/$pokeIdPadLeft.png';
+                  //String imageUrl = 'https://assets.pokemon.com/assets/cms2/img/pokedex/full/$pokeIdPadLeft.png';
 
                   final pokeMoreInfo = pokemon.pokemonMoreInfoData;
                   final pokeStatsData = pokemon.pokemonStatsData;
@@ -87,29 +120,4 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
     );
   }
-
-  Future<void> fetchPokemons() async {
-    await Provider.of<PokemonBasicDataController>(context, listen: false).getAllPokemons(offset);
-    final pokemonStatsController = Provider.of<PokemonStatsController>(context, listen: false);
-    final pokemonMoreInfoController = Provider.of<PokemonMoreInfoController>(context, listen: false);
-
-    for (final pokemon in Provider.of<PokemonBasicDataController>(context, listen: false).pokemons) {
-      await pokemonStatsController.getPokemonStats(pokemon);
-      await pokemonMoreInfoController.getPokemonMoreInfoData(pokemon);
-    }
-  }
-
-  void pokemonLazyLoading() async {
-    _scrollController.addListener(() {
-      if (_scrollController.position.atEdge) {
-        bool isTop = _scrollController.position.pixels == 0;
-
-        if (!isTop) {
-          offset += 20;
-          fetchPokemons();
-        }
-      }
-    });
-  }
-
 }
