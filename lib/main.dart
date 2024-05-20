@@ -56,25 +56,28 @@ class NavigationsDrawer extends StatelessWidget {
     ),
   );
   Widget buildHeader(BuildContext context) => Container();
-  Widget buildMenuItems(BuildContext context) => Column(
-    children: [
-      ListTile(
-        leading: const Icon(Icons.home_outlined),
-        title: const Text('Pokedex'),
-        onTap: () => 
-          Navigator.of(context).pushReplacement(MaterialPageRoute(
-            builder: (context) => const HomeScreen())),
-      ),
-      ListTile(
-        leading: const Icon(Icons.catching_pokemon_outlined),
-        title: const Text('Mis Favoritos'),
-        onTap: () {
-          Navigator.pop(context);
-          Navigator.of(context).push(MaterialPageRoute(
-            builder: (context) => const FavoriteScreen(),
-          ));
-        }
-      )
-    ],
+  Widget buildMenuItems(BuildContext context) => Padding(
+    padding: const EdgeInsets.only(top: 40.0),
+    child: Column(
+      children: [
+        ListTile(
+          leading: const Icon(Icons.home_outlined),
+          title: const Text('Pokedex'),
+          onTap: () => Navigator.of(context).pushReplacement(MaterialPageRoute(
+            builder: (context) => const HomeScreen(),
+          )),
+        ),
+        ListTile(
+          leading: const Icon(Icons.catching_pokemon_outlined),
+          title: const Text('Mis Favoritos'),
+          onTap: () {
+            Navigator.pop(context);
+            Navigator.of(context).push(MaterialPageRoute(
+              builder: (context) => const FavoriteScreen(),
+            ));
+          },
+        ),
+      ],
+    ),
   );
 }
