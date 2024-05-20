@@ -36,19 +36,21 @@ class CustomSliverListView extends StatelessWidget {
               pokeIdPadLeft = pokemon.id;
             }
             return Padding(
-              padding: const EdgeInsets.symmetric(vertical: 8.0),
+              padding: const EdgeInsets.all(constants.mediumPadding),
               child: Row (
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Image.network(
                     imageUrl,
-                    width: 40,
-                    height: 40,
-                    fit: BoxFit.cover,
+                    width: 50,
+                    height: 50,
                   ),
                   const SizedBox(width: 24),
-                  Text(
-                    pokemon.name,
-                    style: const TextStyle(fontSize: 18),
+                  Expanded(
+                    child: Text(
+                      pokemon.name,
+                      style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                    ),
                   ),
                   const SizedBox(width: 16),
                   FutureBuilder(
