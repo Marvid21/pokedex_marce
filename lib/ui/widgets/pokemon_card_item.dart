@@ -17,14 +17,13 @@ class PokemonCardItem extends StatefulWidget {
   final String id;
 
   const PokemonCardItem(
-    {Key? key,
+      {Key? key,
       required this.pokemon,
       this.pokeMoreInfo,
       this.pokeStatsData,
       required this.imageUrl,
-      required this.id
-    }
-  ): super(key: key);
+      required this.id})
+      : super(key: key);
 
   @override
   State<PokemonCardItem> createState() => _PokemonCardItemState();
@@ -42,20 +41,15 @@ class _PokemonCardItemState extends State<PokemonCardItem> {
     super.initState();
   }
 
-
   @override
   Widget build(BuildContext context) {
     final pokeBasicInfo = widget.pokemon;
     final pokeMoreInfoData = widget.pokeMoreInfo ?? PokemonMoreInfoData();
     final pokeStatsData = widget.pokeStatsData ?? PokemonStatsData(attack: 0, defense: 0, hp: 0);
 
-    
-      bool isFavorite = false;
-
-      Future<void> checkFavorite(String name) async {
-        isFavorite = await Provider.of<PokemonFavoriteController>(context).isPokemonFavorite(name);
-      }
-
+    Future<void> checkFavorite(String name) async {
+      isFavorite = await Provider.of<PokemonFavoriteController>(context).isPokemonFavorite(name);
+    }
 
     return GestureDetector(
       child: Builder(builder: (context) {
@@ -72,34 +66,26 @@ class _PokemonCardItemState extends State<PokemonCardItem> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text("Pokemon nro ${widget.id}",
+                    Text(
+                      "Pokemon nro ${widget.id}",
                       style: TextStyle(
                         fontSize: Theme.of(context).textTheme.bodySmall?.fontSize,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    Text(
-                      pokeBasicInfo.name,
-                      overflow: TextOverflow.ellipsis,
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: Theme.of(context).textTheme.headlineLarge?.fontSize,
-                      ),
-                    ),
-                    Hero(
-                      tag: pokeBasicInfo.name,
-                      child: CachedNetworkImage(
-                        imageUrl: widget.imageUrl,
-                        fit: BoxFit.cover,
-                        height: 200,
-                        width: 200,
-                        fadeInDuration: const Duration(milliseconds: 150),
-                        fadeOutDuration: const Duration(milliseconds: 150),
-                        errorWidget: (context, url, error) => const Icon(Icons.error),
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 170.0),
+                      child: Text(
+                        pokeBasicInfo.name,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: Theme.of(context).textTheme.headlineLarge?.fontSize,
+                        ),
                       ),
                     ),
                     Container(
-                      padding: EdgeInsets.only(top: 50.0, bottom: 50.0),
+                      padding: const EdgeInsets.only(top: 50.0, bottom: 50.0),
                       decoration: const BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.all(
@@ -107,8 +93,8 @@ class _PokemonCardItemState extends State<PokemonCardItem> {
                         ),
                       ),
                       child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.stretch,        
-                        children: [             
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
@@ -120,7 +106,7 @@ class _PokemonCardItemState extends State<PokemonCardItem> {
                                       color: cardColor,
                                       borderRadius: const BorderRadius.all(
                                         Radius.circular(5),
-                                      )
+                                      ),
                                     ),
                                     child: Text(
                                       "Attack:",
@@ -135,21 +121,20 @@ class _PokemonCardItemState extends State<PokemonCardItem> {
                                   Container(
                                     padding: const EdgeInsets.all(5),
                                     decoration: const BoxDecoration(
-                                      color:  Color.fromARGB(255, 240, 240, 240),
+                                      color: Color.fromARGB(255, 240, 240, 240),
                                       borderRadius: BorderRadius.all(
                                         Radius.circular(5),
-                                      )
+                                      ),
                                     ),
                                     child: Text(
-                                    pokeStatsData.attack.toString(),
-                                    textAlign: TextAlign.end,
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: Theme.of(context).textTheme.headlineSmall?.fontSize,
+                                      pokeStatsData.attack.toString(),
+                                      textAlign: TextAlign.end,
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: Theme.of(context).textTheme.headlineSmall?.fontSize,
+                                      ),
                                     ),
                                   ),
-                                  ),
-                                
                                 ],
                               ),
                               Row(
@@ -160,7 +145,7 @@ class _PokemonCardItemState extends State<PokemonCardItem> {
                                       color: cardColor,
                                       borderRadius: const BorderRadius.all(
                                         Radius.circular(5),
-                                      )
+                                      ),
                                     ),
                                     child: Text(
                                       "Defense:",
@@ -175,10 +160,10 @@ class _PokemonCardItemState extends State<PokemonCardItem> {
                                   Container(
                                     padding: const EdgeInsets.all(5),
                                     decoration: const BoxDecoration(
-                                      color:  Color.fromARGB(255, 240, 240, 240),
+                                      color: Color.fromARGB(255, 240, 240, 240),
                                       borderRadius: BorderRadius.all(
                                         Radius.circular(5),
-                                      )
+                                      ),
                                     ),
                                     child: Text(
                                       pokeStatsData.defense.toString(),
@@ -205,7 +190,7 @@ class _PokemonCardItemState extends State<PokemonCardItem> {
                                       color: cardColor,
                                       borderRadius: const BorderRadius.all(
                                         Radius.circular(5),
-                                      )
+                                      ),
                                     ),
                                     child: Text(
                                       "HP:",
@@ -220,10 +205,10 @@ class _PokemonCardItemState extends State<PokemonCardItem> {
                                   Container(
                                     padding: const EdgeInsets.all(5),
                                     decoration: const BoxDecoration(
-                                      color:  Color.fromARGB(255, 240, 240, 240),
+                                      color: Color.fromARGB(255, 240, 240, 240),
                                       borderRadius: BorderRadius.all(
                                         Radius.circular(5),
-                                      )
+                                      ),
                                     ),
                                     child: Text(
                                       pokeStatsData.hp.toString(),
@@ -244,7 +229,7 @@ class _PokemonCardItemState extends State<PokemonCardItem> {
                                       color: cardColor,
                                       borderRadius: const BorderRadius.all(
                                         Radius.circular(5),
-                                      )
+                                      ),
                                     ),
                                     child: Text(
                                       "Tipo:",
@@ -259,15 +244,17 @@ class _PokemonCardItemState extends State<PokemonCardItem> {
                                   Container(
                                     padding: const EdgeInsets.all(5),
                                     decoration: const BoxDecoration(
-                                      color:  Color.fromARGB(255, 240, 240, 240),
+                                      color: Color.fromARGB(255, 240, 240, 240),
                                       borderRadius: BorderRadius.all(
                                         Radius.circular(5),
-                                      )
+                                      ),
                                     ),
                                     child: Text(
-                                    pokeMoreInfoData.types?.isNotEmpty ?? false ? pokeMoreInfoData.types![0] : '',
-                                    textAlign: TextAlign.end,
-                                    overflow: TextOverflow.ellipsis,
+                                      pokeMoreInfoData.types?.isNotEmpty ?? false
+                                          ? pokeMoreInfoData.types![0]
+                                          : '',
+                                      textAlign: TextAlign.end,
+                                      overflow: TextOverflow.ellipsis,
                                       style: TextStyle(
                                         fontWeight: FontWeight.bold,
                                         fontSize: Theme.of(context).textTheme.headlineSmall?.fontSize,
@@ -306,17 +293,33 @@ class _PokemonCardItemState extends State<PokemonCardItem> {
                     },
                   ),
                 ),
+                Positioned(
+                  top: 210,
+                  left: 80,
+                  child: Hero(
+                    tag: pokeBasicInfo.name,
+                    child: CachedNetworkImage(
+                      imageUrl: widget.imageUrl,
+                      fit: BoxFit.cover,
+                      height: 200,
+                      width: 200,
+                      fadeInDuration: const Duration(milliseconds: 150),
+                      fadeOutDuration: const Duration(milliseconds: 150),
+                      errorWidget: (context, url, error) => const Icon(Icons.error),
+                    ),
+                  ),
+                ),
               ],
             ),
           );
         } else {
-          return const Center(child: CircularProgressIndicator(color: constants.circularProgressIndicatorColor));
+          return const Center(
+            child: CircularProgressIndicator(color: constants.circularProgressIndicatorColor),
+          );
         }
       }),
     );
   }
-
-
 
   Future<void> generateContainerColor() async {
     ColorsGenerator colorsGenerator = ColorsGenerator();
