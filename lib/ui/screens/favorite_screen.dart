@@ -34,7 +34,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
             return const CustomScrollView(
               slivers: [
                 SliverAppBar(
-                  title: Text('Favorite Pokemons'),
+                  title: Text('Mis Favoritos'),
                 ),
                 SliverPadding(
                   padding: EdgeInsets.all(constants.mediumPadding),
